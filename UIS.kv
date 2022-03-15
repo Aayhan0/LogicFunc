@@ -1,0 +1,235 @@
+#:kivy 2.0.0
+<Choose_Application>
+    GridLayout:
+        padding: [dp(10),dp(10),dp(10),dp(10)]
+        cols: 2
+        Button:
+            text: "compare"
+            on_release:
+                root.manager.current = "Compare_Logical_Functions"
+                root.manager.transition.direction = "right"
+        Button:
+            text: "Evaluate Function"
+            on_release:
+                root.manager.current = "Evaluate_Logical_Function"
+                root.manager.transition.direction = "left"
+
+<Evaluate_Logical_Function>
+    GridLayout:
+        padding: [dp(10),dp(10),dp(10),dp(10)]
+        cols: 1
+        size: root.width, root.height
+        # get the function
+        Label:
+            text: "Bitte geben Sie eine boolsche Funktion ein, V=or, A=and, O=XOR, -=not, Variables should be x1, x2, x3,...."
+            size_hint_y: .1
+        GridLayout:
+            cols: 2
+            size_hint_y: .1
+            Label: 
+                text: "Function:"
+                size_hint_x: .1
+            TextInput:
+                id: input_function
+                text: "x1 V (x1 A x2) V (x1 A x3)"
+        # Buttons to give boolTabel, on/off-set,...
+        Label:
+            text: ""
+            size_hint_y: .01
+        GridLayout:
+            cols: 6
+            size_hint_y: .1
+            Button:
+                id: on_set
+                text: "on-set"
+                on_release:
+                    root.button_pressed_on_set()
+            Button:
+                id: off_set
+                text: "off-set"
+                on_release:
+                    root.button_pressed_off_set()
+            Button:
+                id: VDNF
+                text: "VDNF"
+                on_release:
+                    root.button_pressed_VDNF()
+            Button:
+                id: KDNF
+                text: "KDNF"
+                on_release:
+                    root.button_pressed_KDNF()
+            Button:
+                text: "minimized"
+                on_release:
+                    root.button_pressed_bool_tabel()
+                    root.manager.current = "Screen_Minimized_Function"
+                    root.manager.transition.direction = "left"
+            Button:
+                text: "bool Tabel"
+                on_release:
+                    root.button_pressed_bool_tabel()
+                    root.manager.current = "Screen_Bool_Tabel"
+                    root.manager.transition.direction = "left"
+        # show results
+        Label:
+            text: ""
+            size_hint_y: .01
+        Label:
+            id: output
+            text_size: self.size
+            text: ""
+            halign: 'center'
+            valign: 'top'
+        GridLayout:
+            cols: 2
+            size_hint_y: .1
+            Label:
+                text: ""
+                size_hint_x: .9
+            Button:
+                text: "back"
+                size_hint_x: .1
+                on_release:
+                    root.manager.current = "Choose_Application"
+                    root.manager.transition.direction = "right"
+
+<Screen_Bool_Tabel>
+    GridLayout:
+        padding: [dp(10),dp(10),dp(10),dp(10)]
+        cols: 1
+        size: root.width, root.height
+        Label:
+            id:function
+            text: ""
+            size_hint_y: .1
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+            Label:
+                id: output
+                text: ""
+                size_hint: 1, None
+                size: self.texture_size
+        GridLayout:
+            cols: 2
+            size_hint_y: .1
+            Label:
+                text: ""
+                size_hint_x: .9
+            Button:
+                text: "back"
+                size_hint_x: .1
+                on_release:
+                    root.manager.current = "Evaluate_Logical_Function"
+                    root.manager.transition.direction = "right"
+
+<Screen_Minimized_Function>
+    GridLayout:
+        padding: [dp(10),dp(10),dp(10),dp(10)]
+        cols: 1
+        size: root.width, root.height
+        GridLayout:
+            cols: 2
+            size_hint_y: .1
+            Label: 
+                text: "Function:"
+                size_hint_x: .1
+            Label:
+                id: function
+                text: ""
+        GridLayout:
+            cols: 3
+            size_hint_y: .1
+            Button:
+                id: McCluskey
+                text: "McCluskey"
+                on_release:
+                    root.button_pressed_McCluskey()
+            Button:
+                id: prime
+                text: "prime"
+                on_release:
+                    root.button_pressed_prime()
+            Button:
+                id: optimized
+                text: "optimized"
+                on_release:
+                    root.button_pressed_optimized()
+        Label:
+            text: ""
+            size_hint_y: .01
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+            Label:
+                id: output
+                text: ""
+                size_hint_y: None
+                text_size: self.width, None
+                height: self.texture_size[1]
+        GridLayout:
+            cols: 2
+            size_hint_y: .1
+            Label:
+                text: ""
+                size_hint_x: .9
+            Button:
+                text: "back"
+                size_hint_x: .1
+                on_release:
+                    root.manager.current = "Evaluate_Logical_Function"
+                    root.manager.transition.direction = "right"
+
+<Compare_Logical_Functions>
+    GridLayout:
+        padding: [dp(10),dp(10),dp(10),dp(10)]
+        cols: 1
+        size: root.width, root.height
+        # get the function
+        Label:
+            text: "Bitte geben Sie die boolschen Funktionen ein, V=or, A=and, O=XOR, -=not, Variables should be x1, x2, x3,...."
+            size_hint_y: .1
+        GridLayout:
+            cols: 2
+            size_hint_y: .2
+            GridLayout:
+                cols: 1
+                size_hint_x: .9
+                GridLayout:
+                    cols: 2
+                    size_hint_y: .1
+                    Label: 
+                        text: "Function 1:"
+                        size_hint_x: .15
+                    TextInput:
+                        id: input_function_1
+                GridLayout:
+                    cols: 2
+                    size_hint_y: .1
+                    Label: 
+                        text: "Function 2:"
+                        size_hint_x: .15
+                    TextInput:
+                        id: input_function_2
+            Button:
+                size_hint_x: .1
+                id: compare
+                text: "compare"
+                on_release:
+                    root.button_pressed_compare()
+        Label:
+            id: output
+            text:""
+        GridLayout:
+            cols: 2
+            size_hint_y: .1
+            Label:
+                text: ""
+                size_hint_x: .9
+            Button:
+                text: "back"
+                size_hint_x: .1
+                on_release:
+                    root.manager.current = "Choose_Application"
+                    root.manager.transition.direction = "left"
